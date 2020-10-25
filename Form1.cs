@@ -22,6 +22,27 @@ namespace LoginFormWinFormApplication
         {
             SqlConnection sqlConnection = new SqlConnection(@"Data Source=DESKTOP-G78QN4D;Initial Catalog=userLogin;Integrated Security=True");
             string query = "select * from logins where username = '" + textBox1.Text.Trim()+"'and password = '"+textBox2.Text.Trim()+"'";
+            SqlDataAdapter sda = new SqlDataAdapter(query, sqlConnection);
+            DataTable dtbl = new DataTable();
+            sda.Fill(dtbl);
+            if(dtbl.Rows.Count == 1)
+            {
+                formLoggedIn objfrmLoggedIn = new formLoggedIn();
+                this.Hide();
+                objfrmLoggedIn.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Please check your username and password");
+            }
+        
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
